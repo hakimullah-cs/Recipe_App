@@ -35,7 +35,7 @@ const Contact = () => {
         <Form>
           <div className="mb-4">
             <label htmlFor="name" className="block mb-1">
-              Name
+              Full Name*
             </label>
             <Field
               id="name"
@@ -52,7 +52,7 @@ const Contact = () => {
 
           <div className="mb-4">
             <label htmlFor="email" className="block mb-1">
-              Email
+              Email*
             </label>
             <Field
               id="email"
@@ -69,13 +69,13 @@ const Contact = () => {
 
           <div className="mb-4">
             <label htmlFor="subject" className="block mb-1">
-              Subject
+              Subject*
             </label>
             <Field
               id="subject"
               name="subject"
               type="text"
-              className="w-fullborder border-gray-300 rounded-md py-2 px-3"
+              className="w-full border border-gray-300 rounded-md py-2 px-3"
             />
             <ErrorMessage
               name="subject"
@@ -86,7 +86,7 @@ const Contact = () => {
 
           <div className="mb-4">
             <label htmlFor="message" className="block mb-1">
-              Message
+              Message*
             </label>
             <Field
               id="message"
