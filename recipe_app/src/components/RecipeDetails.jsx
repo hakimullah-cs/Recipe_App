@@ -3,6 +3,7 @@ import NavBar from './common/NavBar';
 import Footer from './common/Footer';
 import { getRecipe } from '../services/api';
 import { useParams } from 'react-router-dom';
+import './Loader.css'
 
 const RecipeDetails = () => {
     const [recipe, setRecipe] = useState({});
@@ -51,7 +52,12 @@ const RecipeDetails = () => {
                         </div>
                     </div>
                 ) : (
-                    <div>Loading...</div>
+                    <div>
+                        <div class="center">
+         <div class="ring"></div>
+         <span>loading...</span>
+      </div>
+                    </div>
                 )}
             </main>
             <Footer />
