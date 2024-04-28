@@ -1,0 +1,22 @@
+@media screen and (max-width:768px) {
+    ul{
+        background:black;
+        width: 300px;
+        position: fixed;
+        left: -300px;
+        top: 0;
+        height: 100vh;
+        flex-direction: column;
+        transition: all 0.23s ease-in-out;
+        padding-top: 5rem;
+    }
+    ul li{
+        color:#fff;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    ul.active{
+        left: 0;
+    }
+}
