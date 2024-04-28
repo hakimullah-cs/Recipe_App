@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import './Loader.css'
 
 const RecipesList = ({ recipes }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const recipesPerPage = 6;
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [recipes]);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (loading) {
+    return <div className='outer border border-red-900 h-[50vh] flex justify-center items-center'>
+                 <div class="center">
+         <div class="ring"></div>
+         <span>loading...</span>
+      </div>
+
+    </div>; 
+  }
 
   return (
     <div className='flex flex-wrap gap-3 md:p-0 p-3'>
@@ -30,7 +50,7 @@ const RecipesList = ({ recipes }) => {
       {/* Pagination */}
       <div className="pagination w-full mt-3">
         {Array.from({ length: Math.ceil(recipes.length / recipesPerPage) }, (_, i) => (
-          <button key={i + 1}  onClick={() => paginate(i + 1)} className={currentPage === i + 1 ? "active" : ""} style={{background:"#1434A4",padding:"3px 14px",marginRight:"8px",borderRadius:"4px",color:"#fff"}}>{i + 1}</button>
+          <button key={i + 1} onClick={() => paginate(i + 1)} className={currentPage === i + 1 ? "active" : ""} style={{ background: "#1434A4", padding: "3px 14px", marginRight: "8px", borderRadius: "4px", color: "#fff" }}>{i + 1}</button>
         ))}
       </div>
     </div>
