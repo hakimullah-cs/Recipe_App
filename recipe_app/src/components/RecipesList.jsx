@@ -9,6 +9,15 @@ const RecipesList = ({ recipes }) => {
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  const [bookmarks, setBookmarks] = useState([]);
+
+  const toggleBookmark = (recipeId) => {
+    if (bookmarks.includes(recipeId)) {
+      setBookmarks(bookmarks.filter(id => id !== recipeId));
+    } else {
+      setBookmarks([...bookmarks, recipeId]);
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,7 +30,7 @@ const RecipesList = ({ recipes }) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (loading) {
-    return <div className='outer border border-red-900 h-[50vh] flex justify-center items-center'>
+    return <div className='outer h-[50vh] flex justify-center items-center'>
                  <div class="center">
          <div class="ring"></div>
          <span>loading...</span>
@@ -42,11 +51,14 @@ const RecipesList = ({ recipes }) => {
             <p className='ms-2 text-[gray] mb-5'>{recipe.publisher}</p>
             <div className='flex gap-3'>
               <Link to={`/recipes/${recipe.recipe_id}`} className='bg-[#1434A4] ms-2 text-white px-5 py-2 rounded font-semibold hover:bg-white hover:border border-[#1434A4] hover:text-[#1434A4] duration-300'>Details</Link>
-              <a href={recipe.source_url} target='_blank' rel="noreferrer" className='bg-[#212529] ms-2 text-white px-5 py-2 rounded font-semibold hover:bg-white hover:border border-[#1434A4] hover:text-[#1434A4] duration-300'>Recipe Url</a>
+              <button onClick={() => toggleBookmark(recipe.recipe_id)} className={`ms-2 px-3 py-2 rounded font-semibold ${bookmarks.includes(recipe.recipe_id) ? 'bg-yellow-500' : 'bg-gray-300'}`}>
+                {bookmarks.includes(recipe.recipe_id) ? 'Bookmarked' : 'Bookmark'}
+              </button>
             </div>
           </div>
         </Link>
       ))}
+
       {/* Pagination */}
       <div className="pagination w-full mt-3">
         {Array.from({ length: Math.ceil(recipes.length / recipesPerPage) }, (_, i) => (
